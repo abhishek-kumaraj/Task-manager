@@ -1,7 +1,8 @@
+require('./db/connection')
 const express = require('express')
 const app = express()
 const task = require('./routes/tasks')
-
+app.use(express.json())
 app.use(express.static('./public'))
 app.get('/hello',(req,res)=>{
     res.send('Hello there')
