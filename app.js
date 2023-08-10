@@ -1,7 +1,9 @@
-require('./db/connection')
 const express = require('express')
 const app = express()
 const task = require('./routes/tasks')
+
+const mongoDB = require('./db/connection')
+require('dotenv').config()
 app.use(express.json())
 app.use(express.static('./public'))
 app.get('/hello',(req,res)=>{
@@ -17,8 +19,17 @@ app.use('/api/v1/tasks',task)
 // app.patch('/api/v1/tasks/:id') - update  task
 // app.delete('/api/v1/tasks/:id') - delete a task
 
+const start = async()=>{
+    try {
+        await mongoDB(process.env.MONGO_URI)
+        app.listen(5000,()=>{
+            console.log('server listening at port 5000...')
+        })
+    } catch (error) {
+        console.log(error)
+    }
 
+}
 
-app.listen(5000,()=>{
-    console.log('server listening at port 5000...')
-})
+start()
+
