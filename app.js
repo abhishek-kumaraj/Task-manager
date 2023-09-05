@@ -14,7 +14,7 @@ app.use(express.static('./public'))
 // app.post('/api/v1/tasks') - create a new task
 app.use('/api/v1/tasks',task) // mount the router on the app
 
-
+app.use(express.static('./public'))
 // app.get('/api/v1/tasks/:id') - get info about a task
 // app.patch('/api/v1/tasks/:id') - update  task
 // app.delete('/api/v1/tasks/:id') - delete a task
