@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const task = require('./routes/tasks')
-
+const notFound = require('./middleware/not-found')
 const mongoDB = require('./db/connection')
 require('dotenv').config() // loads the environment variable defined in .env file into process.env object
 app.use(express.json()) // build in middleware funciton to parse incoming JSON data form the request body
@@ -13,6 +13,8 @@ app.use(express.static('./public'))
 // app.get('/api/v1/tasks') - get all the tasks
 // app.post('/api/v1/tasks') - create a new task
 app.use('/api/v1/tasks',task) // mount the router on the app
+
+app.use(notFound)
 
 app.use(express.static('./public'))
 // app.get('/api/v1/tasks/:id') - get info about a task
